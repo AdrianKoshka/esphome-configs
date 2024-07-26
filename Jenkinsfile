@@ -10,4 +10,7 @@ node("linux") {
     stage("Build") {
         sh("docker run --rm -v '${env.WORKSPACE}':/config ghcr.io/esphome/esphome compile airgradient-one.yaml")
     }
+    stage("Archive") {
+        archiveArtifacts artifacts: '.esphome/build/ag-one/.pioenvs/ag-one/firmware.*', fingerprint: true, followSymlinks: false
+    }
 }
