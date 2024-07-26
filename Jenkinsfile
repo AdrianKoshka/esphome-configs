@@ -11,6 +11,6 @@ node("linux") {
         sh("docker run --rm -v '${env.WORKSPACE}':/config ghcr.io/esphome/esphome compile airgradient-one.yaml")
     }
     stage("Archive") {
-        archiveArtifacts artifacts: '.esphome/build/ag-one/.pioenvs/ag-one/firmware.*', fingerprint: true, followSymlinks: false
+        tar archive: true, compress: true, defaultExcludes: true, dir: '.esphome/build/ag-one/.pioenvs/ag-one/', file: 'firmware.tar.gz', glob: 'firmware.*', overwrite: true
     }
 }
