@@ -1,4 +1,5 @@
 node("linux") {
+    properties([pipelineTriggers([cron('@daily')])])
     stage("Clone") {
         cleanWs deleteDirs: true
         checkout scmGit(branches: [[name: '*/main']], extensions: [cloneOption(depth: 1, noTags: false, reference: '', shallow: true)], userRemoteConfigs: [[credentialsId: 'git-clone-key', url: 'git@github.com:AdrianKoshka/esphome-configs.git']])
